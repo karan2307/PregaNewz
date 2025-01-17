@@ -3,6 +3,7 @@ import { collection, addDoc } from 'firebase/firestore';
 
 export const addAppointment = async (appointmentData) => {
   try {
+    console.log('Adding appointment:', appointmentData);
     const appointmentRef = collection(db, '1');
     
     // Add timestamp and format data
@@ -14,6 +15,7 @@ export const addAppointment = async (appointmentData) => {
     };
 
     const docRef = await addDoc(appointmentRef, formattedData);
+    console.log('Appointment added with ID:', docRef.id);
     
     if (!docRef.id) {
       throw new Error('Failed to get document reference');
