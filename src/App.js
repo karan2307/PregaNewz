@@ -11,6 +11,7 @@ import Emergency from './components/Emergency';
 import Calendar from './components/Calendar';
 import Resources from './components/Resources';
 import Blog from './components/Blog';
+import ChatBot from './components/ChatBot';
 
 function App() {
   return (
@@ -206,6 +207,7 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/blog" element={<Blog />} />
         </Routes>
+        <ChatBot />
     </div>
     </Router>
   );
