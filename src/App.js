@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './App.css';
@@ -12,21 +12,33 @@ import Calendar from './components/Calendar';
 import Resources from './components/Resources';
 import Blog from './components/Blog';
 import ChatBot from './components/ChatBot';
+import AuthForm from './components/AuthForm';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check local storage for user authentication status
+    const user = localStorage.getItem('user');
+    if (user) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   return (
     <Router>
-    <div className="App">
+      <div className="App">
         <Navbar />
+        { !isAuthenticated && <AuthForm setIsAuthenticated={setIsAuthenticated} /> }
         <Routes>
           <Route path="/" element={
             <>
               <motion.section 
                 className="hero-section"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
                 <div className="hero-content">
                   <div className="hero-text">
                     <motion.h1
@@ -36,7 +48,7 @@ function App() {
                       whileHover={{ scale: 1.02 }}
                     >
                       Your Journey to <span className="highlight">Motherhood</span> Starts Here
-        </motion.h1>
+                    </motion.h1>
                     <motion.p
                       initial={{ x: -100, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
@@ -70,14 +82,14 @@ function App() {
                       </Link>
                     </motion.div>
                   </div>
-        <motion.div 
+                  <motion.div 
                     className="hero-image"
                     initial={{ x: 100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
                     <img src="https://i.pinimg.com/originals/7b/2e/f2/7b2ef242443b2e6fe8baa51951192809.jpg" alt="Expecting mother" />
-        </motion.div>
+                  </motion.div>
                 </div>
               </motion.section>
 
@@ -88,43 +100,43 @@ function App() {
                 transition={{ duration: 0.8 }}
               >
                 <Link to="/resources">
-        <motion.div 
+                  <motion.div 
                     className="feature-card resources"
                     whileHover={{ 
                       scale: 1.05,
                       boxShadow: "0 20px 40px rgba(66, 153, 225, 0.15)"
                     }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <h2>Resources & Support</h2>
                     <p>Access expert guidance, educational materials, and community support</p>
-        </motion.div>
+                  </motion.div>
                 </Link>
 
                 <Link to="/workout">
-        <motion.div 
-          className="feature-card workout"
+                  <motion.div 
+                    className="feature-card workout"
                     whileHover={{ 
                       scale: 1.05,
                       boxShadow: "0 20px 40px rgba(72, 187, 120, 0.15)"
                     }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <h2>Safe Exercises</h2>
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h2>Safe Exercises</h2>
                     <p>Stay active with curated pregnancy-friendly workout routines</p>
-        </motion.div>
+                  </motion.div>
                 </Link>
 
                 <Link to="/emergency">
-        <motion.div 
-          className="feature-card emergency"
+                  <motion.div 
+                    className="feature-card emergency"
                     whileHover={{ 
                       scale: 1.05,
                       boxShadow: "0 20px 40px rgba(237, 137, 54, 0.15)"
                     }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <h2>Emergency Guide</h2>
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h2>Emergency Guide</h2>
                     <p>Instant access to critical care information and emergency contacts</p>
                   </motion.div>
                 </Link>
@@ -193,7 +205,7 @@ function App() {
                       <p className="quote">{testimonial.quote}</p>
                       <h4>{testimonial.name}</h4>
                       <span className="role">{testimonial.role}</span>
-        </motion.div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.section>
@@ -208,7 +220,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
         </Routes>
         <ChatBot />
-    </div>
+      </div>
     </Router>
   );
 }

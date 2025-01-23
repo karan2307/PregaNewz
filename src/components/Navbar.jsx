@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+
+  // Close the hamburger menu when the route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
     <nav className="navbar">

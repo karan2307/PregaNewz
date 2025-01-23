@@ -12,10 +12,8 @@ function ChatBot() {
     e.preventDefault();
     if (!inputText.trim()) return;
 
-    // Add user message
     setMessages(prev => [...prev, { text: inputText, isBot: false }]);
 
-    // Simulate bot response
     const response = getBotResponse(inputText.toLowerCase());
     setTimeout(() => {
       setMessages(prev => [...prev, { text: response, isBot: true }]);
